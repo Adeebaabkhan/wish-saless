@@ -893,7 +893,7 @@
             <div class="header-content">
                 <div class="app-icon">🏪</div>
                 <div class="header-text">
-                    <h1>Wish Shoppe Tracker</h1>
+                    <h1>Wishy Tracker</h1>
                     <p>✨ Your Magical Sales Management System 💖</p>
                 </div>
             </div>
@@ -1139,14 +1139,14 @@
 
     <script>
         // Check authentication
-        if (sessionStorage.getItem('wishShoppeLoggedIn') !== 'true') {
+        if (sessionStorage.getItem('wishyLoggedIn') !== 'true') {
             window.location.href = 'index.html';
         }
 
         // Get current user info
-        const currentUser = sessionStorage.getItem('wishShoppeUser');
-        const currentRole = sessionStorage.getItem('wishShoppeRole');
-        const currentName = sessionStorage.getItem('wishShoppeName');
+        const currentUser = sessionStorage.getItem('wishyUser');
+        const currentRole = sessionStorage.getItem('wishyeRole');
+        const currentName = sessionStorage.getItem('wishyName');
 
         // Set user info in UI
         document.getElementById('userName').textContent = currentName;
@@ -1160,7 +1160,7 @@
         }
 
         // Initialize sales data
-        let sales = JSON.parse(localStorage.getItem('wishShoppeSales')) || [];
+        let sales = JSON.parse(localStorage.getItem('wishyeSales')) || [];
         let currentFilter = 'all';
 
         // Set today's date
@@ -1169,7 +1169,7 @@
         // ============ CUSTOM ITEMS MANAGEMENT ============
 
         // Initialize default items if not exists
-        if (!localStorage.getItem('wishShoppeItems')) {
+        if (!localStorage.getItem('wishyeItems')) {
             const defaultItems = [
                 'Cabcut 1m solo',
                 'Cabcut 70 solo',
@@ -1177,12 +1177,12 @@
                 'Cabcut 70 duo',
                 'Other'
             ];
-            localStorage.setItem('wishShoppeItems', JSON.stringify(defaultItems));
+            localStorage.setItem('wishyItems', JSON.stringify(defaultItems));
         }
 
         // Load items into dropdowns
         function loadItemsToDropdown() {
-            const items = JSON.parse(localStorage.getItem('wishShoppeItems')) || [];
+            const items = JSON.parse(localStorage.getItem('wishyItems')) || [];
             
             // Update main form dropdown
             const itemSelect = document.getElementById('item');
@@ -1209,7 +1209,7 @@
 
         // Load items into admin panel grid
         function loadCustomItems() {
-            const items = JSON.parse(localStorage.getItem('wishShoppeItems')) || [];
+            const items = JSON.parse(localStorage.getItem('wishyItems')) || [];
             const grid = document.getElementById('customItemsGrid');
 
             if (items.length === 0) {
@@ -1236,7 +1236,7 @@
                 return;
             }
 
-            const items = JSON.parse(localStorage.getItem('wishShoppeItems')) || [];
+            const items = JSON.parse(localStorage.getItem('wishyItems')) || [];
 
             if (items.includes(itemName)) {
                 showToast('error', '❌', 'This item already exists!');
@@ -1244,7 +1244,7 @@
             }
 
             items.push(itemName);
-            localStorage.setItem('wishShoppeItems', JSON.stringify(items));
+            localStorage.setItem('wishyItems', JSON.stringify(items));
 
             document.getElementById('newItemName').value = '';
             loadCustomItems();
@@ -1255,9 +1255,9 @@
         // Remove custom item
         function removeCustomItem(itemName) {
             if (confirm(`Remove "${itemName}" from the list? 💔`)) {
-                let items = JSON.parse(localStorage.getItem('wishShoppeItems')) || [];
+                let items = JSON.parse(localStorage.getItem('wishyItems')) || [];
                 items = items.filter(item => item !== itemName);
-                localStorage.setItem('wishShoppeItems', JSON.stringify(items));
+                localStorage.setItem('wishyItems', JSON.stringify(items));
 
                 loadCustomItems();
                 loadItemsToDropdown();
@@ -1296,7 +1296,7 @@
             };
 
             sales.unshift(sale);
-            localStorage.setItem('wishShoppeSales', JSON.stringify(sales));
+            localStorage.setItem('wishySales', JSON.stringify(sales));
 
             // Reset form
             document.getElementById('amount').value = '';
@@ -1402,7 +1402,7 @@
                     notes: document.getElementById('editNotes').value || '-'
                 };
 
-                localStorage.setItem('wishShoppeSales', JSON.stringify(sales));
+                localStorage.setItem('wishySales', JSON.stringify(sales));
                 displaySales();
                 updateStats();
                 closeEditModal();
@@ -1417,7 +1417,7 @@
         function deleteSale(id) {
             if (confirm('Are you sure you want to delete this sale? 💔')) {
                 sales = sales.filter(sale => sale.id !== id);
-                localStorage.setItem('wishShoppeSales', JSON.stringify(sales));
+                localStorage.setItem('wishySales', JSON.stringify(sales));
                 displaySales();
                 updateStats();
                 showToast('info', 'ℹ️', 'Sale deleted');
@@ -1427,7 +1427,7 @@
         function clearAllData() {
             if (confirm('⚠️ Delete ALL sales data? This cannot be undone! 💔')) {
                 if (confirm('Are you absolutely sure?')) {
-                    localStorage.removeItem('wishShoppeSales');
+                    localStorage.removeItem('wishySales');
                     sales = [];
                     displaySales();
                     updateStats();
@@ -1451,7 +1451,7 @@
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `wish-shoppe-sales-${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = `wishy-sales-${new Date().toISOString().split('T')[0]}.csv`;
             a.click();
             window.URL.revokeObjectURL(url);
 
@@ -1492,7 +1492,7 @@
         }
 
         function loadUsers() {
-            const users = JSON.parse(localStorage.getItem('wishShoppeUsers'));
+            const users = JSON.parse(localStorage.getItem('wishyUsers'));
             const tbody = document.getElementById('usersTableBody');
 
             tbody.innerHTML = Object.keys(users).map(username => {
@@ -1517,7 +1517,7 @@
         document.getElementById('addUserForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const users = JSON.parse(localStorage.getItem('wishShoppeUsers'));
+            const users = JSON.parse(localStorage.getItem('wishyUsers'));
             const username = document.getElementById('newUsername').value.trim();
             const password = document.getElementById('newPassword').value;
             const name = document.getElementById('newName').value.trim();
@@ -1534,7 +1534,7 @@
                 role: role
             };
 
-            localStorage.setItem('wishShoppeUsers', JSON.stringify(users));
+            localStorage.setItem('wishyUsers', JSON.stringify(users));
 
             document.getElementById('addUserForm').reset();
             loadUsers();
@@ -1543,9 +1543,9 @@
 
         function deleteUser(username) {
             if (confirm(`Delete user "${username}"? 💔`)) {
-                const users = JSON.parse(localStorage.getItem('wishShoppeUsers'));
+                const users = JSON.parse(localStorage.getItem('wishyUsers'));
                 delete users[username];
-                localStorage.setItem('wishShoppeUsers', JSON.stringify(users));
+                localStorage.setItem('wishyUsers', JSON.stringify(users));
                 loadUsers();
                 showToast('info', 'ℹ️', 'User deleted');
             }
