@@ -405,7 +405,7 @@
     <div class="login-container">
         <div class="login-header">
             <div class="login-icon">🏪</div>
-            <h1>Wish Shoppe Tracker</h1>
+            <h1>Wishy Tracker</h1>
             <p>✨ Your Magical Sales System 💕</p>
         </div>
 
@@ -439,13 +439,13 @@
         </div>
 
         <div class="login-footer">
-            🔐 Secure Login • Wish Shoppe © 2025
+            🔐 Secure Login • Wishy © 2025
         </div>
     </div>
 
     <script>
         // Initialize users in localStorage if not exists
-        if (!localStorage.getItem('wishShoppeUsers')) {
+        if (!localStorage.getItem('wishyUsers')) {
             const defaultUsers = {
                 admin: {
                     password: 'admin2025',
@@ -453,7 +453,7 @@
                     name: 'Administrator'
                 }
             };
-            localStorage.setItem('wishShoppeUsers', JSON.stringify(defaultUsers));
+            localStorage.setItem('wishyUsers', JSON.stringify(defaultUsers));
         }
 
         // Password toggle functionality
@@ -482,15 +482,15 @@
             // Simulate loading delay for better UX
             setTimeout(() => {
                 // Get users from localStorage
-                const users = JSON.parse(localStorage.getItem('wishShoppeUsers'));
+                const users = JSON.parse(localStorage.getItem('wishyUsers'));
 
                 // Check credentials
                 if (users[username] && users[username].password === password) {
                     // Store session
-                    sessionStorage.setItem('wishShoppeLoggedIn', 'true');
-                    sessionStorage.setItem('wishShoppeUser', username);
-                    sessionStorage.setItem('wishShoppeRole', users[username].role);
-                    sessionStorage.setItem('wishShoppeName', users[username].name);
+                    sessionStorage.setItem('wishyLoggedIn', 'true');
+                    sessionStorage.setItem('wishyUser', username);
+                    sessionStorage.setItem('wishyRole', users[username].role);
+                    sessionStorage.setItem('wishyName', users[username].name);
 
                     // Success feedback
                     loginBtn.innerHTML = '<span class="btn-text">✅ Success! Redirecting...</span>';
@@ -524,7 +524,7 @@
         });
 
         // Check if already logged in
-        if (sessionStorage.getItem('wishShoppeLoggedIn') === 'true') {
+        if (sessionStorage.getItem('wishyLoggedIn') === 'true') {
             window.location.href = 'dashboard.html';
         }
 
